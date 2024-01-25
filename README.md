@@ -21,7 +21,7 @@ In end-to-end training and testing, the following three phases are executed in t
 Running the end-to-end program is very simple, just call
 `python main.py` 
 
-The file `main.py` is contains the parameters/arguments and calls to training, subgoal graph construction, and testing functions.
+The file `main.py` contains the parameters/arguments and calls to training, subgoal graph construction, and testing functions.
 
 # Modular execution
 Coming soon...independent/asynchornous execution of the three phases by saving and loading agent policy, Q function, and subgoal graph models.
