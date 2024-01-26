@@ -10,7 +10,11 @@ from tf_agents.metrics import tf_metrics
 from tf_agents.replay_buffers import tf_uniform_replay_buffer
 from tf_agents.utils import common
 
-def train_eval(
+from agent import UvfAgent
+from envs.twoD_mazes import env_load_fn
+
+#Training function
+def train(
     tf_agent,
     tf_env,
     eval_tf_env,
@@ -24,6 +28,7 @@ def train_eval(
     # Params for checkpoints, summaries, and logging
     log_interval=1000,
     random_seed=0):
+        
   """A simple train and eval for UVF.  """
   tf.compat.v1.logging.info('random_seed = %d' % random_seed)
   np.random.seed(random_seed)
@@ -119,3 +124,43 @@ def train_eval(
       tf.compat.v1.logging.info('\t eval_time = %.2f' % (time.time() - start))
         
   return train_loss
+
+########################################## Train UVF Agent #######################################
+
+max_episode_steps = 20
+
+tf.compat.v1.reset_default_graph()
+
+#Define environment
+envss = ['FourRooms', 'Maze6x6', 'Maze11x11']
+env_name = envss[1] # Choose one of the environments shown above. 
+resize_factor = 5  # Inflate the environment to increase the difficulty.
+
+tf_env = env_load_fn(env_name, max_episode_steps,
+                     resize_factor=resize_factor,
+                     terminate_on_timeout=False)
+eval_tf_env = env_load_fn(env_name, max_episode_steps,
+                          resize_factor=resize_factor,
+                          terminate_on_timeout=True)
+
+#Define agent
+agent = UvfAgent(
+    tf_env.time_step_spec(),
+    tf_env.action_spec(),
+    max_episode_steps=max_episode_steps,
+    use_distributional_rl=True,
+    ensemble_size=3)
+
+#Train the agent
+train(
+    agent,
+    tf_env,
+    eval_tf_env,
+    initial_collect_steps=1000,
+    eval_interval=1000,
+    num_eval_episodes=10,
+    num_iterations=30000,
+)
+
+#Stage 1 (Agent Training) is complete. Save agent and environment for use in Stage 2 (Graph model building).
+
