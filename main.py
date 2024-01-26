@@ -30,22 +30,7 @@ tf_env = env_load_fn(env_name, max_episode_steps,
 eval_tf_env = env_load_fn(env_name, max_episode_steps,
                           resize_factor=resize_factor,
                           terminate_on_timeout=True)
-agent = UvfAgent(
-    tf_env.time_step_spec(),
-    tf_env.action_spec(),
-    max_episode_steps=max_episode_steps,
-    use_distributional_rl=True,
-    ensemble_size=3)
 
-train_eval(
-    agent,
-    tf_env,
-    eval_tf_env,
-    initial_collect_steps=1000,
-    eval_interval=1000,
-    num_eval_episodes=10,
-    num_iterations=30000,
-)
 
 ############################# Sample random states into replay buffer. State space is bounded, so we can assume the agent has already seen all the states during training ################
 eval_tf_env.pyenv.envs[0].gym.set_sample_goal_args(
