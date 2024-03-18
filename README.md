@@ -24,5 +24,3 @@ Running the end-to-end program is very simple, just call
 
 The file `main.py` contains the parameters/arguments and calls to training, subgoal graph construction, and testing functions.
 
-# Modular execution
-Coming soon...independent/asynchornous execution of the three phases by saving and loading agent policy, Q function, and subgoal graph models.
