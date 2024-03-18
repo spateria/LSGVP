@@ -1,5 +1,5 @@
 # LSGVP: Value-Based Subgoal Discovery and Path Planning for Reaching Long-Horizon Goals.
-[Paper source](https://ieeexplore.ieee.org/abstract/document/10040536) 
+This is the official code for the following paper published in IEEE Transactions on Neural Networks and Learning Systems [Value-Based Subgoal Discovery and Path Planning for Reaching Long-Horizon Goals](https://ieeexplore.ieee.org/abstract/document/10040536) 
 
 This work addresses the challenge of training autonomous agents to reach long-horizon goals in spatial traversal tasks. It introduces a novel planning method called "Learning Subgoal Graph using Value-based Subgoal Discovery and Automatic Pruning" (LSGVP). Unlike existing methods, LSGVP uses a subgoal discovery heuristic based on cumulative reward, resulting in sparse subgoals that align with higher cumulative reward paths. Additionally, LSGVP includes an automatic pruning mechanism to remove erroneous connections between subgoals, particularly those across obstacles. As a result, LSGVP outperforms other methods in terms of achieving higher cumulative rewards and goal-reaching success rates in spatial traversal tasks.
 
